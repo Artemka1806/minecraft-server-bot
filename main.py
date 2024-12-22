@@ -94,7 +94,7 @@ async def purge(inter, nickname: str):
     user = await User.find_one({"minecraft_nickname": nickname})
     if user:
         await user.delete()
-    command = f"whitelist remove {nickname}"
+    command = f"easywhitelist remove {nickname}"
     with MCRcon(RCON_IP, RCON_PASSWORD, port=RCON_PORT) as rcon:
         response = rcon.command(command)
         await inter.edit_original_response(content=f"`{command}`\n```{response}```")
@@ -112,7 +112,7 @@ async def help_listener(inter: disnake.MessageInteraction):
         await inter.message.delete()
         await inter.response.defer()
         user_id, nickname = inter.component.custom_id.split("::")[1:]
-        command = f"whitelist add {nickname}"
+        command = f"easywhitelist add {nickname}"
         with MCRcon(RCON_IP, RCON_PASSWORD, port=RCON_PORT) as rcon:
             response = rcon.command(command)
             channel = bot.get_channel(VERIFICATION_CHANNEL_ID)
