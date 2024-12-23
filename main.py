@@ -36,6 +36,7 @@ bot = commands.Bot(intents=disnake.Intents.default(), sync_commands_debug=True)
 @instance.register
 class User(Document):
     discord_id = fields.IntegerField(unique=True)
+    discord_username = fields.StringField(allow_none=True)
     minecraft_nickname = fields.StringField()
     created_at = fields.DateTimeField(default=datetime.datetime.utcnow)
 
@@ -58,7 +59,7 @@ class VerifyModal(disnake.ui.Modal):
         data = inter.text_values.items()
         data = {key: value for key, value in data}
 
-        user = User(discord_id=inter.author.id, minecraft_nickname=data["nickname"])
+        user = User(discord_id=inter.author.id, discord_username=inter.author.username, minecraft_nickname=data["nickname"])
         await user.commit()
 
         embed=disnake.Embed(title="Новий запит на приєднання", color=0x00ff40)
