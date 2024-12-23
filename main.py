@@ -59,7 +59,7 @@ class VerifyModal(disnake.ui.Modal):
         data = inter.text_values.items()
         data = {key: value for key, value in data}
 
-        user = User(discord_id=inter.author.id, discord_username=inter.author.mention, minecraft_nickname=data["nickname"])
+        user = User(discord_id=inter.author.id, discord_username=inter.author.discriminator, minecraft_nickname=data["nickname"])
         await user.commit()
 
         embed=disnake.Embed(title="Новий запит на приєднання", color=0x00ff40)
